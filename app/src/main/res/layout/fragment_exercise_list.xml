@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/dark_gradient_bg">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view_exercise_list"
@@ -19,6 +20,7 @@
         android:id="@+id/recycler_exercise_list" android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        android:textColor="#FFFFFF"/>
 
 </LinearLayout>

@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.TextView; // Pastikan ini diimport
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView; // Import SearchView dari appcompat
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,7 +41,8 @@ public class HomeFragment extends Fragment {
     private TextView userName;
     private ProgressBar loadingProgressBar;
     private SearchView searchView;
-    private List<Exercise> originalExerciseList; // Untuk menyimpan daftar asli
+    private TextView tvTargetMusclesLink; // Deklarasikan TextView baru
+    private List<Exercise> originalExerciseList;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -60,6 +61,7 @@ public class HomeFragment extends Fragment {
         userName = view.findViewById(R.id.user_name);
         loadingProgressBar = view.findViewById(R.id.loading_progress);
         searchView = view.findViewById(R.id.search_view);
+        tvTargetMusclesLink = view.findViewById(R.id.tv_target_muscles_link); // Inisialisasi TextView baru
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -70,25 +72,32 @@ public class HomeFragment extends Fragment {
         });
 
         // --- Logika Pencarian ---
-        // Ini sudah benar untuk pencarian real-time
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // Biasanya, ini dipanggil saat pengguna menekan tombol "search" pada keyboard.
-                // Jika Anda ingin filter langsung saat mengetik, sebagian besar logika ada di onQueryTextChange.
                 filterExercises(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // Ini adalah metode yang akan dipanggil setiap kali teks dalam SearchView berubah,
-                // termasuk saat mengetik satu huruf atau menghapus satu huruf.
                 filterExercises(newText);
                 return false;
             }
         });
         // --- Akhir Logika Pencarian ---
+
+        // --- Listener untuk "Target Muscles" ---
+        tvTargetMusclesLink.setOnClickListener(v -> {
+            FragmentTransaction transaction = requireActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction();
+
+            transaction.replace(R.id.fragment_container, new CategoryFragment());
+            transaction.addToBackStack(null); // pengguna kembali
+            transaction.commit();
+        });
+        // --- Akhir Listener "Target Muscles" ---
 
         return view;
     }
@@ -114,17 +123,12 @@ public class HomeFragment extends Fragment {
                 recyclerView.setVisibility(View.VISIBLE);
 
                 if (response.isSuccessful() && response.body() != null) {
-                    // Simpan daftar asli
                     originalExerciseList = response.body().getData().getExercises();
                     Log.d("API", "Total exercises from API: " + originalExerciseList.size());
 
-                    // Inisialisasi adapter dengan daftar asli.
-                    // Penting: Jika ada teks pencarian di SearchView saat ini (misalnya setelah rotasi layar),
-                    // kita perlu memfilter ulang saat pertama kali daftar dimuat.
                     String currentQuery = searchView.getQuery().toString();
                     List<Exercise> initialListToDisplay;
                     if (!currentQuery.isEmpty()) {
-                        // Jika ada query, filter daftar awal
                         initialListToDisplay = new ArrayList<>();
                         String lowerCaseQuery = currentQuery.toLowerCase();
                         for (Exercise exercise : originalExerciseList) {
@@ -135,7 +139,6 @@ public class HomeFragment extends Fragment {
                             }
                         }
                     } else {
-                        // Jika tidak ada query, tampilkan semua
                         initialListToDisplay = originalExerciseList;
                     }
 
@@ -172,7 +175,6 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    // --- Metode untuk memfilter daftar latihan ---
     private void filterExercises(String query) {
         if (adapter == null || originalExerciseList == null) {
             return;
@@ -180,11 +182,10 @@ public class HomeFragment extends Fragment {
 
         List<Exercise> filteredList = new ArrayList<>();
         if (query.isEmpty()) {
-            filteredList.addAll(originalExerciseList); // Jika query kosong, tampilkan semua
+            filteredList.addAll(originalExerciseList);
         } else {
             String lowerCaseQuery = query.toLowerCase();
             for (Exercise exercise : originalExerciseList) {
-                // Filter berdasarkan nama, target, atau bagian tubuh
                 if (exercise.getName() != null && exercise.getName().toLowerCase().contains(lowerCaseQuery) ||
                         (exercise.getTargetMuscles() != null && exercise.getTargetMuscles().toString().toLowerCase().contains(lowerCaseQuery)) ||
                         (exercise.getBodyParts() != null && exercise.getBodyParts().toString().toLowerCase().contains(lowerCaseQuery))) {

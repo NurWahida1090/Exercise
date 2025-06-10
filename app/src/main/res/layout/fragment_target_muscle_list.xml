@@ -3,11 +3,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/dark_gradient_bg">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_target"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:textColor="#FFFFFF"/>
 </LinearLayout>
 

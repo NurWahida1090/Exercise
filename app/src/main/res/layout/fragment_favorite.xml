@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/dark_gradient_bg">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_favorite"
@@ -17,7 +18,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_centerInParent="true" android:visibility="gone"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@color/white"
         android:gravity="center"/>
 
 </RelativeLayout>

@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:background="@drawable/dark_gradient_bg">
 
     <ProgressBar
         android:id="@+id/loading_progress"
@@ -22,13 +23,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:textColor="#FFFFFF"/>
 
     <!-- RecyclerView untuk hasil filter -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvExercise"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:textColor="#FFFFFF"/>
 
 </LinearLayout>
