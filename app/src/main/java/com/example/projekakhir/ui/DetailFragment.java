@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.projekakhir.R;
 import com.example.projekakhir.model.Exercise;
 import com.example.projekakhir.util.FavoriteManager;
@@ -86,10 +88,28 @@ public class DetailFragment extends Fragment {
                 textSecondaryMuscles.setText("Secondary Muscles: " + listToString(exercise.getSecondaryMuscles()));
                 textEquipments.setText("Equipments: " + listToString(exercise.getEquipments()));
 
-                // Load gif
-                Glide.with(requireContext())
-                        .load(exercise.getGifUrl())
-                        .into(imageExercise);
+                // --- BAGIAN PERBAIKAN UNTUK LOAD GIF ---
+                if (exercise.getGifUrl() != null && !exercise.getGifUrl().isEmpty()) {
+                    GlideUrl glideUrl = new GlideUrl(
+                            exercise.getGifUrl(),
+                            new LazyHeaders.Builder()
+                                    // Pastikan Referer ini sesuai dengan yang diharapkan server
+                                    // Seringkali, ini adalah domain tempat API utama Anda di-host
+                                    .addHeader("Referer", "https://exercisedb.vercel.app")
+                                    .build()
+                    );
+
+                    Glide.with(requireContext())
+                            .asGif() // Penting untuk memastikan Glide mencoba memuatnya sebagai GIF
+                            .load(glideUrl)
+                            .error(R.drawable.image_placeholder_bg) // Gambar placeholder jika gagal
+                            .placeholder(R.drawable.image_placeholder_bg) // Gambar placeholder saat loading
+                            .into(imageExercise);
+                } else {
+                    // Handle jika URL GIF kosong atau null
+                    imageExercise.setImageResource(R.drawable.image_placeholder_bg);
+                    Log.e("DETAIL_FRAGMENT", "GIF URL is null or empty for exercise: " + exercise.getName());
+                }
             } else {
                 Log.e("DETAIL_FRAGMENT", "Exercise object is NULL");
             }
