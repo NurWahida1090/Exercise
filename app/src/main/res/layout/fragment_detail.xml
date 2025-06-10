@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/detail_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="@drawable/gif_placeholder_bg">
+
+    <!-- Tombol Back di kiri atas -->
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:padding="12dp"
+        android:src="@drawable/ic_back"
+        android:contentDescription="Back" />
+
+    <!-- Nama exercise (diletakkan di bawah tombol back) -->
+    <TextView
+        android:id="@+id/tv_exercise_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_back"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Exercise Name"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-medium"
+        android:letterSpacing="0.05"
+        android:shadowColor="#000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="6"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:gravity="center" />
+
+    <!-- GIF Exercise dengan frame -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_gif"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_below="@id/tv_exercise_name"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="8dp"
+        android:elevation="12dp"
+        android:radius="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_exercise_gif"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:background="@drawable/gif_placeholder_bg" />
+
+            <!-- Tombol Love di kanan bawah gif -->
+            <ImageView
+                android:id="@+id/btn_love"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="16dp"
+                android:background="@drawable/love_button_bg"
+                android:padding="14dp"
+                android:src="@drawable/ic_favborder"
+                android:contentDescription="Favorite"
+                android:elevation="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- ScrollView untuk detail (diletakkan di bawah CardView) -->
+    <ScrollView
+        android:id="@+id/scroll_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/card_gif"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:id="@+id/detail_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="24dp">
+
+            <TextView
+                android:id="@+id/tv_target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Target: "
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tv_body_part"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Body Part: "
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tv_secondary_muscles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Secondary Muscles: "
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tv_equipments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Equipments: "
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tv_instructions_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Instructions:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tv_instructions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Step 1, Step 2, ..."
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
