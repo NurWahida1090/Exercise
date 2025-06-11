@@ -4,12 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@drawable/dark_gradient_bg">
+    android:background="@drawable/dark_gradient_bg"
+    android:textColor="#FFFFFF">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Exercise Categories"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary_purple"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-medium" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_target"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF" />
 </LinearLayout>
-

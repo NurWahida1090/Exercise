@@ -15,10 +15,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="You haven't favorited anything yet"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:layout_centerInParent="true" android:visibility="gone"
-        android:textColor="@color/white"
+        android:textColor="@color/text_secondary"
         android:gravity="center"/>
 
 </RelativeLayout>

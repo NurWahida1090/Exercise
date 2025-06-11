@@ -53,7 +53,7 @@
                 android:letterSpacing="0.03"
                 android:paddingBottom="8dp"
                 android:maxLines="2"
-                android:ellipsize="end" />
+                android:ellipsize="end"/>
 
             <TextView
                 android:id="@+id/tvTarget"
